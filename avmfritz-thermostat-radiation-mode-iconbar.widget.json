@@ -1,0 +1,27 @@
+{
+    "template": "<div class=\"row\">\n<div class=\"col-md-12\" ng-if=\"!(!config.title || 0 === config.title.length)\"><h3>{{config.title}}</h3><br /></div>\n<div class=\"col-md-12\">\n<table ng-init=\"glyphs = {\n    \t\t\t\t\t'ON':'glyphicon-off', \n              'OFF':'glyphicon-remove-circle', \n    \t\t\t\t\t'COMFORT':'glyphicon-home',\n              'ECO':'glyphicon-leaf',\n              'BOOST':'glyphicon-fire',\n              'WINDOW_OPEN':'glyphicon-th-large',\n           }\" style=\"width:100%;\">\n  <tr style=\"width:100%; text-align: center; vertical-align: middle;\">\n  <td \n       ng-repeat=\"(key, glyph) in glyphs\"\n       ng-style=\"{color: itemValue(config.radiation_mode_item)==key?config.color_active:''}\"\n       ng-click=\"sendCmd(config.radiation_mode_item, key)\" \n       align=\"center\">\n    <span class=\"glyphicon {{glyph}}\" \n          style=\"font-size:1.5em;\"\n          title=\"{{}}\"\n    ></span>\n  </td>\n  </tr>\n</table>\n</div></div>",
+    "name": "AVM!Fritz Thermostat: Radiation Mode Iconbar",
+    "author": "broele",
+    "description": "This widget controls the radiation mode of a thermostat connected to a Fritz!Box",
+    "settings": [
+        {
+            "type": "string",
+            "id": "title",
+            "label": "Title Text",
+            "description": "The Title text"
+        },
+        {
+            "type": "item",
+            "id": "radiation_mode_item",
+            "label": "Item",
+            "description": "An radiation mode item of the thermostat"
+        },
+        {
+            "type": "color",
+            "id": "color_active",
+            "label": "Color: Active Mode",
+            "default": "#0db9f0",
+            "description": ""
+        }
+    ]
+}
