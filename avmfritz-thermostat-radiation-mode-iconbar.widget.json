@@ -1,5 +1,5 @@
 {
-    "template": "<div class=\"row\">\n<div class=\"col-md-12\" ng-if=\"!(!config.title || 0 === config.title.length)\"><h3>{{config.title}}</h3><br /></div>\n<div class=\"col-md-12\">\n<table ng-init=\"glyphs = {\n    \t\t\t\t\t'ON':'glyphicon-off', \n              'OFF':'glyphicon-remove-circle', \n    \t\t\t\t\t'COMFORT':'glyphicon-home',\n              'ECO':'glyphicon-leaf',\n              'BOOST':'glyphicon-fire',\n              'WINDOW_OPEN':'glyphicon-th-large',\n           }\" style=\"width:100%;\">\n  <tr style=\"width:100%; text-align: center; vertical-align: middle;\">\n  <td \n       ng-repeat=\"(key, glyph) in glyphs\"\n       ng-style=\"{color: itemValue(config.radiation_mode_item)==key?config.color_active:''}\"\n       ng-click=\"sendCmd(config.radiation_mode_item, key)\" \n       align=\"center\">\n    <span class=\"glyphicon {{glyph}}\" \n          style=\"font-size:1.5em;\"\n          title=\"{{}}\"\n    ></span>\n  </td>\n  </tr>\n</table>\n</div></div>",
+    "template": "<div class=\"row\">\n<div class=\"col-md-12\" ng-if=\"!(!config.title || 0 === config.title.length)\"><h3>{{config.title}}</h3><br /></div>\n<div class=\"col-md-12\">\n<table ng-init=\"\n\tglyphs = [\n    ['ON','glyphicon-off'], \n\t\t['OFF','glyphicon-remove-circle'], \n\t\t['COMFORT','glyphicon-home'],\n\t\t['ECO','glyphicon-leaf'],\n\t\t['BOOST','glyphicon-fire'],\n\t\t['WINDOW_OPEN','glyphicon-th-large'],\n\t];\n  m = glyphs.length;\n  n_cols = (config.n_cols > 0) ? config.n_cols : m;\n  n_rows = ((m - 1) - (m - 1) % n_cols) / n_cols + 1;\n\t\" \n\tstyle=\"width:100%;\">\n  <tr ng-repeat=\"x1 in [].constructor(n_rows) track by $index\" ng-init=\"r = $index\">\n  <td \n       ng-repeat=\"x2 in [].constructor(n_cols) track by $index\" \n       ng-init=\"c = $index\"\n       ng-style=\"{color: itemValue(config.radiation_mode_item)==glyphs[c + r * n_cols][0]?config.color_active:''}\"\n       ng-click=\"sendCmd(config.radiation_mode_item, glyphs[c + r * n_cols][0])\" \n       align=\"center\"\n       style=\"padding:5px;\">\n    <span class=\"glyphicon {{glyphs[c + r * n_cols][1]}}\" \n          style=\"font-size:1.5em;\"\n    ></span>\n  </td>\n  </tr>\n</table>\n</div></div>",
     "name": "AVM!Fritz Thermostat: Radiation Mode Iconbar",
     "author": "broele",
     "description": "This widget controls the radiation mode of a thermostat connected to a Fritz!Box",
@@ -22,6 +22,13 @@
             "label": "Color: Active Mode",
             "default": "#0db9f0",
             "description": ""
+        },
+        {
+            "type": "number",
+            "id": "n_cols",
+            "label": "Number of columns",
+            "description": "Number of columns. If left empty, symbols are placed in one row",
+            "default": "0"
         }
     ]
 }
